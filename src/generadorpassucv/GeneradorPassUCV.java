@@ -26,24 +26,26 @@ public class GeneradorPassUCV {
      */
     private static String ARCHIVO_ORIGEN = "C:\\Users\\racorrea2\\txt.txt";
     private static String ARCHIVO_DESTINO = "C:\\Users\\racorrea2\\txt_2.txt";
-    
+
     public static void main(String[] args) {
         try {
-            muestraContenido(ARCHIVO_ORIGEN);
+            leerArchivo(ARCHIVO_ORIGEN);
 //            escribirArchivo("C:\\Users\\racorrea2\\txt_2.txt");
         } catch (IOException ex) {
             Logger.getLogger(GeneradorPassUCV.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public static void muestraContenido(String archivo) throws FileNotFoundException, IOException {
+    public static void leerArchivo(String archivo) throws FileNotFoundException, IOException {
         String cadena;
+        String cifrado;
+        char[] cifradoToArray;
         FileReader f = new FileReader(archivo);
         BufferedReader b = new BufferedReader(f);
         while ((cadena = b.readLine()) != null) {
-            
-            System.out.println("encodedBytes " + cifrarBase64(cadena));
-            //System.out.println(cadena);
+            cifrado = cifrarBase64(cadena);
+            cifradoToArray = convertirArreglo(cifrado);
+            logicaPasswords(cifradoToArray);
         }
         b.close();
     }
@@ -59,11 +61,31 @@ public class GeneradorPassUCV {
         }
 
     }
-    
-    public static String cifrarBase64(String cadena){
+
+    public static String cifrarBase64(String cadena) {
         byte[] encodedBytes = Base64.getEncoder().encode(cadena.getBytes());
         String cifrado = new String(encodedBytes);
         return cifrado;
+    }
+
+    public static char[] convertirArreglo(String cifrado) {
+        char[] arrayCifrado = cifrado.toCharArray();
+        System.out.println(cifrado + " => " + arrayCifrado[0] + " " + arrayCifrado[1] + " " + arrayCifrado[2] + " " + arrayCifrado[3]);
+        return arrayCifrado;
+    }
+    
+    public static void logicaPasswords(char[] arregloPass){
+        char[] arregloResultante = null;
+        String digitosPosTres = "?43";
+        for(int i=0; i<arregloPass.length; i++){
+            //arregloResultante[i] = arregloPass[i];
+//            if(i == 2){ //posicion 3
+//                arregloResultante[i] = digitosPosTres.charAt(0);
+//            }
+            System.out.println(" ---> " + arregloPass[i]);
+        }
+        System.out.println("---------***------------");
+        
     }
 
 }
