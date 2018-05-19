@@ -13,6 +13,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -28,13 +30,12 @@ public class GeneradorPassUCV {
     /**
      * @param args the command line arguments
      */
-    private static String ARCHIVO_ORIGEN = "D:\\ucv\\txt.txt";
-    private static String ARCHIVO_DESTINO = "D:\\ucv\\txt_2.txt";
+    private static String ARCHIVO_ORIGEN = "C:\\Users\\Usuario\\Desktop\\ucv-pass\\test.txt";
+    private static String ARCHIVO_DESTINO = "C:\\Users\\Usuario\\Desktop\\ucv-pass\\test_2.txt";
 
     public static void main(String[] args) {
         try {
             tratarArchivo(ARCHIVO_ORIGEN);
-//            escribirArchivo("C:\\Users\\racorrea2\\txt_2.txt");
         } catch (IOException ex) {
             Logger.getLogger(GeneradorPassUCV.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -44,6 +45,7 @@ public class GeneradorPassUCV {
         String cadena;
         String cifrado;
         String cifradoFinal;
+        String encodeCifrado;
 
         List<Character> cifradoToArray;
         FileReader f = new FileReader(archivo);
@@ -56,31 +58,23 @@ public class GeneradorPassUCV {
 
 
         while ((cadena = b.readLine()) != null) {
-            cifrado = cifrarBase64(cadena);
-            cifradoToArray = convertirArreglo(cifrado);
-            cifradoFinal = logicaPasswords(cifradoToArray);
-            System.out.println(cifradoFinal);
-            pw.println(cifradoFinal);
-            
-            //escribirArchivo(ARCHIVO_DESTINO, cifradoFinal);
+            //cifrado = cifrarBase64(cadena);
+            //cifradoToArray = convertirArreglo(cifrado);
+            //cifradoFinal = logicaPasswords(cifradoToArray);
+            encodeCifrado = encodeCifradoText(cadena);
+            System.out.println(encodeCifrado);
+            pw.println(encodeCifrado);
         }
         b.close();
         if (null != fichero) {
             fichero.close();
         }
     }
-
-//    public static void escribirArchivo(String claveEncriptada) throws IOException {
-//        FileWriter fichero = null;
-//        PrintWriter pw = null;
-//        fichero = new FileWriter(ARCHIVO_DESTINO);
-//        pw = new PrintWriter(fichero);
-//        pw.println(claveEncriptada);
-//        pw.
-//        if (null != fichero) {
-//            fichero.close();
-//        }
-//    }
+    
+    public static String encodeCifradoText(String cadenaBase64) throws UnsupportedEncodingException{
+        String encode = URLEncoder.encode(cadenaBase64, "UTF-8");
+        return encode;
+    }
 
     public static String cifrarBase64(String cadena) {
         byte[] encodedBytes = Base64.getEncoder().encode(cadena.getBytes());
@@ -118,7 +112,6 @@ public class GeneradorPassUCV {
         for (Character ch : lista) {
             sb.append(ch);
         }
-
         String cifrado = sb.toString();
         return cifrado;
     }
