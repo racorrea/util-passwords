@@ -30,8 +30,8 @@ public class GeneradorPassUCV {
     /**
      * @param args the command line arguments
      */
-    private static String ARCHIVO_ORIGEN = "C:\\Users\\Usuario\\Desktop\\ucv-pass\\test.txt";
-    private static String ARCHIVO_DESTINO = "C:\\Users\\Usuario\\Desktop\\ucv-pass\\test_2.txt";
+    private static String ARCHIVO_ORIGEN = "D:\\ucv-pass\\ucv-pass_base64.txt";
+    private static String ARCHIVO_DESTINO = "D:\\ucv-pass\\ucv-pass_base64_encode.txt";
 
     public static void main(String[] args) {
         try {
@@ -55,6 +55,7 @@ public class GeneradorPassUCV {
         PrintWriter pw = null;
         fichero = new FileWriter(ARCHIVO_DESTINO);
         pw = new PrintWriter(fichero);
+        Integer contador = 1;
 
 
         while ((cadena = b.readLine()) != null) {
@@ -62,8 +63,9 @@ public class GeneradorPassUCV {
             //cifradoToArray = convertirArreglo(cifrado);
             //cifradoFinal = logicaPasswords(cifradoToArray);
             encodeCifrado = encodeCifradoText(cadena);
-            System.out.println(encodeCifrado);
+            System.out.println(contador + " = " +encodeCifrado);
             pw.println(encodeCifrado);
+            contador++;
         }
         b.close();
         if (null != fichero) {
