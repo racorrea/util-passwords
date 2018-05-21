@@ -23,6 +23,7 @@ public class GeneradorPassUCV {
     private static String ARCHIVO_CLAVES_ORIGINALES = "ucv-pass.txt";
     private static String ARCHIVO_BASE64 = "ucv-pass_base64.txt";
     private static String ARCHIVO_BASE64_ENCODE = "ucv-pass_base64_encode.txt";
+    private static String ARCHIVO_DICCIONARIO = "ucv-pass_base64_encode_diccionario.txt";
     
     public String cadenaTexto;
 
@@ -31,6 +32,7 @@ public class GeneradorPassUCV {
         try {
             la.tratarArchivoBase64(PATH + ARCHIVO_CLAVES_ORIGINALES, PATH + ARCHIVO_BASE64);
             la.tratarArchivoBase64Encode(PATH + ARCHIVO_BASE64, PATH + ARCHIVO_BASE64_ENCODE);
+            la.generarArchivoDiccionario(PATH + ARCHIVO_CLAVES_ORIGINALES, PATH + ARCHIVO_DICCIONARIO);
         } catch (IOException ex) {
             Logger.getLogger(GeneradorPassUCV.class.getName()).log(Level.SEVERE, null, ex);
         }
