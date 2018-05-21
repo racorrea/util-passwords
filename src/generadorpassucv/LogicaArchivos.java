@@ -14,29 +14,26 @@ import java.util.List;
  */
 public class LogicaArchivos {
     public void tratarArchivoBase64(String archivoOrigen, String archivoDestino) throws FileNotFoundException, IOException {
-        String cadena;
-        String cifrado;
-        String cifradoFinal;
-        String encodeCifrado;
+        String password;
+        String passwordCifrado;
+        String passwordCifradoFinal;
+        Integer contador = 1;
+        List<Character> cifradoToArray;
 
         Util util = new Util();
 
-        List<Character> cifradoToArray;
         FileReader f = new FileReader(archivoOrigen);
         BufferedReader b = new BufferedReader(f);
 
-        FileWriter fichero = null;
-        PrintWriter pw = null;
-        fichero = new FileWriter(archivoDestino);
-        pw = new PrintWriter(fichero);
-        Integer contador = 1;
+        FileWriter fichero = new FileWriter(archivoDestino);
+        PrintWriter pw = new PrintWriter(fichero);
 
-        while ((cadena = b.readLine()) != null) {
-            cifrado = util.cifrarBase64(cadena);
-            cifradoToArray = util.convertirArreglo(cifrado);
-            cifradoFinal = util.logicaPasswords(cifradoToArray);
-            pw.println(cifradoFinal);
-            System.out.println(contador + " = " + cifradoFinal);
+        while ((password = b.readLine()) != null) {
+            passwordCifrado = util.cifrarBase64(password);
+            cifradoToArray = util.stringToList(passwordCifrado);
+            passwordCifradoFinal = util.logicaPasswords(cifradoToArray);
+            pw.println(passwordCifradoFinal);
+            System.out.println(contador + " => " + passwordCifradoFinal);
             contador++;
         }
         b.close();
@@ -44,27 +41,22 @@ public class LogicaArchivos {
     }
 
     public void tratarArchivoBase64Encode(String archivoOrigen, String archivoDestino) throws FileNotFoundException, IOException {
-        String cadena;
-        String cifrado;
-        String cifradoFinal;
-        String encodeCifrado;
+        String passwordBase64;
+        String encodePasswordBase64;
+        Integer contador = 1;
 
         Util util = new Util();
 
-        List<Character> cifradoToArray;
         FileReader f = new FileReader(archivoOrigen);
         BufferedReader b = new BufferedReader(f);
 
-        FileWriter fichero = null;
-        PrintWriter pw = null;
-        fichero = new FileWriter(archivoDestino);
-        pw = new PrintWriter(fichero);
-        Integer contador = 1;
+        FileWriter fichero = new FileWriter(archivoDestino);
+        PrintWriter pw = new PrintWriter(fichero);
 
-        while ((cadena = b.readLine()) != null) {
-            encodeCifrado = util.encodeCifradoText(cadena);
-            pw.println(encodeCifrado);
-            System.out.println(contador + " = " + encodeCifrado);
+        while ((passwordBase64 = b.readLine()) != null) {
+            encodePasswordBase64 = util.codificador(passwordBase64);
+            pw.println(encodePasswordBase64);
+            System.out.println(contador + " => " + encodePasswordBase64);
             contador++;
         }
         b.close();

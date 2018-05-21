@@ -10,7 +10,7 @@ import java.util.List;
  * @author racorrea
  */
 public class Util {
-    public String encodeCifradoText(String cadenaBase64) throws UnsupportedEncodingException{
+    public String codificador(String cadenaBase64) throws UnsupportedEncodingException{
         String encode = URLEncoder.encode(cadenaBase64, "UTF-8");
         return encode;
     }
@@ -21,7 +21,7 @@ public class Util {
         return cifrado;
     }
 
-    public List<Character> convertirArreglo(String cifrado) {
+    public List<Character> stringToList(String cifrado) {
         List<Character> listaCaracteresCifrado = new ArrayList<Character>();
         for (char c : cifrado.toCharArray()) {
             listaCaracteresCifrado.add(c);
