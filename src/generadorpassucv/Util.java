@@ -10,7 +10,8 @@ import java.util.List;
  * @author racorrea
  */
 public class Util {
-    public String codificador(String cadenaBase64) throws UnsupportedEncodingException{
+
+    public String codificador(String cadenaBase64) throws UnsupportedEncodingException {
         String encode = URLEncoder.encode(cadenaBase64, "UTF-8");
         return encode;
     }
@@ -54,4 +55,13 @@ public class Util {
         String cifrado = sb.toString();
         return cifrado;
     }
+
+    public void generarPasswords() {
+        int[] clave = {7, 0, 0, 0, 0, 0, 0, 0};
+        for (int i = 1; i < 7; i++) {
+            clave[i] += i;
+            System.out.println(clave.toString());
+        }
+    }
+
 }
